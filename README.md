@@ -46,6 +46,12 @@ reproduced 3/3, including twice from a cold boot.
 
 ## caveats
 
+**not all boards read 0x77.** the script only acts on exactly 0x77 and refuses anything
+else, because a different mask probably means a different (or real) harvest. 0x77 is
+0b01110111, core 3 of each ccx, symmetric, which looks like a product config choice. an
+asymmetric mask looks more like actual defect binning, and the primitive always writes
+0x00ff regardless, so blanket-enabling there is a worse bet. left alone on purpose.
+
 volatile, redo per cold boot.
 
 no idea why these 2 cores are disabled (ps5 oberon die). 3 boots and a short load test
