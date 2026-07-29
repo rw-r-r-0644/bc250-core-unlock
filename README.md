@@ -62,6 +62,24 @@ fine.
 only tested on bios 3.0. the 0.58.7.1 smu build (bios 5) differs in one dispatch slot, so
 0x98 is probably the same there, untested.
 
+## known issue: gpu clock reporting
+
+after the unlock, pp_dpm_sclk and hwmon freq1_input report nonsense. fluctuates, roughly
+18 to 60 mhz instead of 500 at idle.
+
+the gpu itself is fine:
+
+```
+smu's own clock getters are correct and stable: dom00 500, dom19 1500, fclk 1200, uclk 875
+llama-bench gemma 12b q4_0 tg32: 39.73 t/s at 8 cores, 39.71 t/s at 6 cores
+no mces, no smu errors, gpu voltage normal (924 mv)
+```
+
+so it is amdgpu's derived value that is wrong, not the hardware and not the smu. cosmetic.
+
+pinned reads from old and new cores are both wrong (cpu0 19mhz, cpu14 23mhz) so it is not
+per core. tsc is fine (3194 mhz, no sync warnings). cause not identified yet.
+
 ## bc250-dfps.py
 
 df/memory p-state, same mailbox. about 22w idle between top and bottom state.
