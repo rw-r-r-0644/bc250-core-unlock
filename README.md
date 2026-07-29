@@ -8,6 +8,7 @@ tested on bios 3.0, kernel 6.18.40.
 
 ```
 sudo systemctl stop cyan-skillfish-governor-smu
+sudo chmod +x ./bc250-unlock-cores.py
 sudo ./bc250-unlock-cores.py
 sudo reboot
 ```
