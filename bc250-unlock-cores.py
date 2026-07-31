@@ -71,8 +71,10 @@ try:
     if before & 0xFF == 0xFF:
         print("already 0xFF - reboot to pick up all 8 cores")
         raise SystemExit(0)
-    if before & 0xFF != 0x77:
-        sys.exit("unexpected mask 0x%02X, expected 0x77 - aborting" % (before & 0xFF))
+    if before & 0xFF != 0x77 and '-f' not in sys.argv:
+        sys.exit("non-0x77 presence mask detected, high probability of defective cores - STOPPING!\n"
+            "the disabled cores might behave unpredictably (crashes/instability/incorrect results/data corruption/...)\n"
+            "pass -f to ignore and proceed anyway (at your own risk)")
 
     st = send(MSG_WRITE_FF, MASK_REG)
     if st != 0x01:
