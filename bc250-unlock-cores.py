@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-"""Enable the BC-250's two disabled CPU cores. 6c/12t -> 8c/16t.
+"""
+Enable the BC-250's two disabled CPU cores. 6c/12t -> 8c/16t.
 
 Writes the core presence mask (SMN 0x0115A870) from 0x77 to 0xFF using queue 3 message
 0x98, an ungated SMU-privileged SMN write. Takes effect on the next reboot: AGESA then
 enumerates 8 cores and the PSP releases all of them.
 
-  sudo systemctl stop cyan-skillfish-governor-smu
-  sudo ./bc250-unlock-cores.py
-  sudo reboot
+  sudo su
+  systemctl stop cyan-skillfish-governor-smu
+  chmod +x ./bc250-unlock-cores.py
+  ./bc250-unlock-cores.py
+  reboot
 
 The mask is NOT host-writable, which is why this needs the SMU. Volatile - a cold power
 cycle very likely reverts it (untested), so this may need repeating per cold boot.
@@ -77,9 +80,9 @@ try:
     time.sleep(0.2)
 
     after = smn_rd(MASK_REG)
-    print("after write        : 0x%08X" % after)
+    print("after write       : 0x%08X" % after)
     if after & 0xFF != 0xFF:
         sys.exit("mask did not take")
-    print("\nOK. Reboot to bring up all 8 cores (16 threads).")
+    print("\nOK. reboot to bring up all 8 cores (16 threads).")
 finally:
     os.close(fd)
