@@ -2,7 +2,7 @@
 """
 Enable the BC-250's two disabled CPU cores. 6c/12t -> 8c/16t.
 
-Writes the core presence mask (SMN 0x0115A870) from 0x77 to 0xFF using queue 3 message
+Writes the core presence mask (SMN 0x5A870) from 0x77 to 0xFF using queue 3 message
 0x98, an ungated SMU-privileged SMN write. Takes effect on the next reboot: AGESA then
 enumerates 8 cores and the PSP releases all of them.
 
@@ -22,7 +22,7 @@ import struct
 import sys
 import time
 
-MASK_REG = 0x0115A870
+MASK_REG = 0x5A870
 MSG_WRITE_FF = 0x98
 Q3_CMD, Q3_RSP, Q3_ARG = 0x03B10A20, 0x03B10A80, 0x03B10A88
 DONE = {0x01, 0xFF, 0xFE, 0xFD, 0xFC}
