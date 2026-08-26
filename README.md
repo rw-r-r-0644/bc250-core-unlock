@@ -47,7 +47,7 @@ you can achieve this using RescueMei's BIOS mod at https://github.com/RescueMei/
 
 ## ACPI fixes for 8 cores
 
-you can find a version of the ACPI table fixes for 8 cores here: https://github.com/mendesrr/bc250-acpi-fix-updated-8c.git
+you can find a version of the ACPI table fixes for 8 cores here: https://github.com/e-tho/bc250-acpi-fix  
 
 ## known issue: GPU clock reporting
 
