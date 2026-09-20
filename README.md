@@ -42,7 +42,7 @@ volatile, redo per cold boot.
 once you are confident that the 2 new cores work correctly, you may want to automatically
 enable the cores on cold boot.
 
-you can achieve this using RescueMei's BIOS mod at https://github.com/RescueMei/BC250-DXE-SMU-Core-Unlock  
+you can achieve this using RescueMei's BIOS mod at https://github.com/RescueMei/BC250-DXEv3-BIOSMOD  
 (by placing this in a BIOS DXE driver, it loads much more quickly than a full linux reboot or even a small EFI shim)
 
 ## ACPI fixes for 8 cores
